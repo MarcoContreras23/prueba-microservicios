@@ -1,8 +1,6 @@
 package prueba.microservicios.cliente_persona_service.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -11,14 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import prueba.microservicios.cliente_persona_service.config.RabbitMQConfig;
 import prueba.microservicios.cliente_persona_service.dto.ClienteDTO;
 import prueba.microservicios.cliente_persona_service.dto.ClienteResponseDTO;
 import prueba.microservicios.cliente_persona_service.entity.Cliente;
 import prueba.microservicios.cliente_persona_service.exception.ResourceNotFoundException;
 import prueba.microservicios.cliente_persona_service.mapper.ClienteMapper;
 import prueba.microservicios.cliente_persona_service.repository.ClienteRepository;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 @Service
 @RequiredArgsConstructor
@@ -26,8 +22,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteRepository clienteRepository;
-    private final RabbitTemplate rabbitTemplate;
     private final ClienteMapper clienteMapper;
+    private final MensajeriaService mensajeriaService;
 
     @Override
     @Transactional
@@ -43,7 +39,7 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente saved = clienteRepository.save(cliente);
         log.info("Cliente creado con clienteId: {}", saved.getClienteId());
 
-        publishEvent("cliente.event.created", saved);
+        mensajeriaService.publishEvent("cliente.event.created", saved);
 
         return clienteMapper.toResponseDTO(saved);
     }
@@ -78,7 +74,7 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente updated = clienteRepository.save(cliente);
         log.info("Cliente actualizado con clienteId: {}", updated.getClienteId());
 
-        publishEvent("cliente.event.updated", updated);
+        mensajeriaService.publishEvent("cliente.event.updated", updated);
 
         return clienteMapper.toResponseDTO(updated);
     }
@@ -93,22 +89,6 @@ public class ClienteServiceImpl implements ClienteService {
         clienteRepository.save(cliente);
         log.info("Cliente eliminado (soft delete) con clienteId: {}", clienteId);
 
-        publishEvent("cliente.event.deleted", cliente);
+        mensajeriaService.publishEvent("cliente.event.deleted", cliente);
     }
-
-    private void publishEvent(String routingKey, Cliente cliente) {
-        try {
-            Map<String, Object> event = new HashMap<>();
-            event.put("clienteId", cliente.getClienteId());
-            event.put("nombre", cliente.getNombre());
-            event.put("estado", cliente.getEstado());
-            event.put("action", routingKey);
-
-            rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, routingKey, event);
-            log.info("Evento publicado: {} para clienteId: {}", routingKey, cliente.getClienteId());
-        } catch (Exception e) {
-            log.error("Error al publicar evento para clienteId: {}. Error: {}", cliente.getClienteId(), e.getMessage());
-        }
-    }
-
 }

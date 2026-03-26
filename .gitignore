@@ -1,0 +1,12 @@
+HELP.md
+
+
+### VS Code ###
+.vscode/
+
+### Environment ###
+.env
+*.env
+
+##claude
+.claude/

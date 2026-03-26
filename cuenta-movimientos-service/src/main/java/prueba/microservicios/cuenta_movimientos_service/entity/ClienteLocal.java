@@ -27,6 +27,7 @@ public class ClienteLocal {
     private String nombre;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean estado = true;
 }
 

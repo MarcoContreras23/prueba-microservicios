@@ -37,6 +37,7 @@ public class Cuenta {
     private BigDecimal saldoInicial;
 
     @Column(nullable = false)
+    @Builder.Default
     private Boolean estado = true;
 
     @Column(name = "cliente_id", nullable = false)
