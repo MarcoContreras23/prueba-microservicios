@@ -14,11 +14,12 @@ import prueba.microservicios.cliente_persona_service.entity.Cliente;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class MensajeriaServiceImpl {
+public class MensajeriaServiceImpl implements MensajeriaService {
 
     private final RabbitTemplate rabbitTemplate;
-    
-    void publishEvent(String routingKey, Cliente cliente) {
+
+    @Override
+    public void publishEvent(String routingKey, Cliente cliente) {
         try {
             Map<String, Object> event = new HashMap<>();
             event.put("clienteId", cliente.getClienteId());
