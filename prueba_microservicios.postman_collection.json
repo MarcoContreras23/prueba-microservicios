@@ -1,0 +1,419 @@
+{
+  "info": {
+    "name": "Prueba Microservicios",
+    "description": "Colección de endpoints para la prueba de microservicios",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "cliente_url",
+      "value": "http://localhost:8081"
+    },
+    {
+      "key": "cuenta_url",
+      "value": "http://localhost:8082"
+    }
+  ],
+  "item": [
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Crear Cliente - Jose Lema",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Jose Lema\",\n  \"genero\": \"Masculino\",\n  \"edad\": 30,\n  \"identificacion\": \"1234567890\",\n  \"direccion\": \"Otavalo sn y principal\",\n  \"telefono\": \"098254785\",\n  \"contrasena\": \"1234\",\n  \"estado\": true\n}"
+            },
+            "url": {
+              "raw": "{{cliente_url}}/clientes",
+              "host": ["{{cliente_url}}"],
+              "path": ["clientes"]
+            }
+          }
+        },
+        {
+          "name": "Crear Cliente - Marianela Montalvo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Marianela Montalvo\",\n  \"genero\": \"Femenino\",\n  \"edad\": 28,\n  \"identificacion\": \"0987654321\",\n  \"direccion\": \"Amazonas y NNUU\",\n  \"telefono\": \"097548965\",\n  \"contrasena\": \"5678\",\n  \"estado\": true\n}"
+            },
+            "url": {
+              "raw": "{{cliente_url}}/clientes",
+              "host": ["{{cliente_url}}"],
+              "path": ["clientes"]
+            }
+          }
+        },
+        {
+          "name": "Listar Todos los Clientes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cliente_url}}/clientes",
+              "host": ["{{cliente_url}}"],
+              "path": ["clientes"]
+            }
+          }
+        },
+        {
+          "name": "Obtener Cliente por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cliente_url}}/clientes/cli001",
+              "host": ["{{cliente_url}}"],
+              "path": ["clientes", "cli001"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Cliente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Jose Lema Actualizado\",\n  \"genero\": \"Masculino\",\n  \"edad\": 31,\n  \"identificacion\": \"1234567890\",\n  \"direccion\": \"Nueva dirección 123\",\n  \"telefono\": \"098254785\",\n  \"contrasena\": \"nueva_clave\",\n  \"estado\": true\n}"
+            },
+            "url": {
+              "raw": "{{cliente_url}}/clientes/cli001",
+              "host": ["{{cliente_url}}"],
+              "path": ["clientes", "cli001"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Cliente (Soft Delete)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{cliente_url}}/clientes/cli001",
+              "host": ["{{cliente_url}}"],
+              "path": ["clientes", "cli001"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cuentas",
+      "item": [
+        {
+          "name": "Crear Cuenta Ahorro - Jose Lema",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"478758\",\n  \"tipoCuenta\": \"Ahorro\",\n  \"saldoInicial\": 2000.00,\n  \"estado\": true,\n  \"clienteId\": \"cli001\"\n}"
+            },
+            "url": {
+              "raw": "{{cuenta_url}}/cuentas",
+              "host": ["{{cuenta_url}}"],
+              "path": ["cuentas"]
+            }
+          }
+        },
+        {
+          "name": "Crear Cuenta Corriente - Marianela",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"225487\",\n  \"tipoCuenta\": \"Corriente\",\n  \"saldoInicial\": 100.00,\n  \"estado\": true,\n  \"clienteId\": \"cli002\"\n}"
+            },
+            "url": {
+              "raw": "{{cuenta_url}}/cuentas",
+              "host": ["{{cuenta_url}}"],
+              "path": ["cuentas"]
+            }
+          }
+        },
+        {
+          "name": "Crear Cuenta Ahorro - Marianela",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"496825\",\n  \"tipoCuenta\": \"Ahorro\",\n  \"saldoInicial\": 540.00,\n  \"estado\": true,\n  \"clienteId\": \"cli002\"\n}"
+            },
+            "url": {
+              "raw": "{{cuenta_url}}/cuentas",
+              "host": ["{{cuenta_url}}"],
+              "path": ["cuentas"]
+            }
+          }
+        },
+        {
+          "name": "Listar Todas las Cuentas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cuenta_url}}/cuentas",
+              "host": ["{{cuenta_url}}"],
+              "path": ["cuentas"]
+            }
+          }
+        },
+        {
+          "name": "Obtener Cuenta por Número",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cuenta_url}}/cuentas/478758",
+              "host": ["{{cuenta_url}}"],
+              "path": ["cuentas", "478758"]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Cuenta",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"478758\",\n  \"tipoCuenta\": \"Ahorro\",\n  \"saldoInicial\": 2000.00,\n  \"estado\": true,\n  \"clienteId\": \"cli001\"\n}"
+            },
+            "url": {
+              "raw": "{{cuenta_url}}/cuentas/478758",
+              "host": ["{{cuenta_url}}"],
+              "path": ["cuentas", "478758"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Cuenta (Soft Delete)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{cuenta_url}}/cuentas/478758",
+              "host": ["{{cuenta_url}}"],
+              "path": ["cuentas", "478758"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Movimientos",
+      "item": [
+        {
+          "name": "Registrar Depósito",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"478758\",\n  \"valor\": 500.00\n}"
+            },
+            "url": {
+              "raw": "{{cuenta_url}}/movimientos",
+              "host": ["{{cuenta_url}}"],
+              "path": ["movimientos"]
+            }
+          }
+        },
+        {
+          "name": "Registrar Retiro",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"478758\",\n  \"valor\": -575.00\n}"
+            },
+            "url": {
+              "raw": "{{cuenta_url}}/movimientos",
+              "host": ["{{cuenta_url}}"],
+              "path": ["movimientos"]
+            }
+          }
+        },
+        {
+          "name": "Registrar Retiro - Saldo Insuficiente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"478758\",\n  \"valor\": -50000.00\n}"
+            },
+            "url": {
+              "raw": "{{cuenta_url}}/movimientos",
+              "host": ["{{cuenta_url}}"],
+              "path": ["movimientos"]
+            }
+          }
+        },
+        {
+          "name": "Registrar Depósito - Cuenta Corriente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"225487\",\n  \"valor\": 600.00\n}"
+            },
+            "url": {
+              "raw": "{{cuenta_url}}/movimientos",
+              "host": ["{{cuenta_url}}"],
+              "path": ["movimientos"]
+            }
+          }
+        },
+        {
+          "name": "Listar Todos los Movimientos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cuenta_url}}/movimientos",
+              "host": ["{{cuenta_url}}"],
+              "path": ["movimientos"]
+            }
+          }
+        },
+        {
+          "name": "Obtener Movimiento por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cuenta_url}}/movimientos/1",
+              "host": ["{{cuenta_url}}"],
+              "path": ["movimientos", "1"]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Movimiento",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{cuenta_url}}/movimientos/1",
+              "host": ["{{cuenta_url}}"],
+              "path": ["movimientos", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reportes",
+      "item": [
+        {
+          "name": "Estado de Cuenta - Jose Lema",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cuenta_url}}/reportes?fechaInicio=2022-01-01&fechaFin=2022-12-31&cliente=cli001",
+              "host": ["{{cuenta_url}}"],
+              "path": ["reportes"],
+              "query": [
+                {
+                  "key": "fechaInicio",
+                  "value": "2022-01-01"
+                },
+                {
+                  "key": "fechaFin",
+                  "value": "2022-12-31"
+                },
+                {
+                  "key": "cliente",
+                  "value": "cli001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Estado de Cuenta - Marianela Montalvo",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cuenta_url}}/reportes?fechaInicio=2022-01-01&fechaFin=2022-12-31&cliente=cli002",
+              "host": ["{{cuenta_url}}"],
+              "path": ["reportes"],
+              "query": [
+                {
+                  "key": "fechaInicio",
+                  "value": "2022-01-01"
+                },
+                {
+                  "key": "fechaFin",
+                  "value": "2022-12-31"
+                },
+                {
+                  "key": "cliente",
+                  "value": "cli002"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
